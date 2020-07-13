@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<link rel = "stylesheet" href="C:/Users/srini/Documents/UI Development/Bootsrap/dist/css/bootstrap.css">
+		<script>
+			var calcnum = [1,2,3,4,5,6,7,8,9,0,"*","/"];
+			var calopr = ["+", "-", "%","="];
+			function rendercalc()
+			{
+				var data="";
+				for(i=0;i<calcnum.length;i++)
+				{
+					if(i%3==0)
+					{
+					data = data + "<tr>";
+					}
+					data = data + "<td onclick='set(this.innerText)'>" + calcnum[i] + "</td>";
+					if((i+1)%3==0)
+					{
+						data = data + "</tr>";
+					}
+				}
+				document.getElementById("numbers").innerHTML = data;
+				
+				var ops = "";
+				for(i=0;i<calopr.length;i++)
+				{
+					ops = ops + "<tr>" + "<td onclick='set(this.innerText)'>" + calopr[i] + "</td>" + "</tr>";
+				}
+				document.getElementById("operations").innerHTML = ops;
+			}
+			function set(val)
+			{
+				if(val == "=")
+				{
+					document.getElementById("display").value = eval(document.getElementById("display").value);
+				} 
+				else
+				{
+					document.getElementById("display").value += val;
+				}
+			}
+			function clearend()
+			{
+			var value = document.getElementById("display").value 
+			document.getElementById("display").value = value.slice(0, value.length-1);
+			}
+		</script>
+	</head>
+	<body onload="rendercalc()">
+		<div class="container"><br><br>
+			<div class="col-md-3"></div>	
+			<div class="col-md-6 jumbotron">
+				<div class="row form-group">
+					<textarea class="form-control"rows="4" id="display"></textarea>	
+				</div>
+				<div class="row">
+					<div class="col-md-8 text-center">
+						<table class="table table-bordered" cellpadding="10">
+							<tbody id="numbers"></tbody>
+						</table>
+						<button class="btn btn-info" onclick="document.getElementById('display').value = ''">ClearAll</button>
+						<button class="btn btn-info" onclick="clearend()">ClearEnd</button>
+					</div>
+					<div class="col-md-2">
+						<table class="table table-bordered" cellpadding="10">
+							<tbody id="operations"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>	
+			<div class="col-md-3"></div>	
+		</div>
+	</body>
+</html>
